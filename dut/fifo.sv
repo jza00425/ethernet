@@ -40,7 +40,7 @@ module fifo (
   end
 
   always_ff @ (posedge clk) begin
-	  if(write_en == 1'b1) && (tmp_full != 1'b1) begin
+	  if((write_en == 1'b1) && (tmp_full != 1'b1)) begin
 		  ram[write_ptr] = data_in;
 		  tmp_empty = 1'b0;
 		  write_ptr = (write_ptr + 1) % FIFO_DEPTH;
@@ -49,7 +49,7 @@ module fifo (
 		  end
 	  end
 
-	  if(read_en == 1'b1) && (tmp_empty != 1'b1) begin
+	  if((read_en == 1'b1) && (tmp_empty != 1'b1)) begin
 		  data_out = ram[read_ptr];
 		  tmp_full = 1'b0;
 		  read_ptr = (read_ptr + 1) % FIFO_DEPTH;

@@ -41,6 +41,7 @@ always @ (*) begin
 			end else begin
 				nState = DATA_RCV;
 			end
+		end
 		DONE: begin
 			nState = IDLE;
 		end

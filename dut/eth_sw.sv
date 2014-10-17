@@ -6,7 +6,7 @@ module eth_sw(
 	input inSopA,
 	input inEopA,
 	input [31:0] inDataB,
-	input inSopA,
+	input inSopB,
 	input inEopB,
 	output reg [31:0] outDataA,
 	output reg outSopA,
@@ -97,8 +97,8 @@ always_ff @ (posedge clk) begin
 		for(int i = 0; i < 2; i++) begin
 			if(read_fifo_head[i] && ~fifo_empty[i]) begin
 				fifo_rd_en[i] <= 1'b1;
-				read_fifo_head <= 1'b0;
-				read_fifo_data <= 1'b1;
+				read_fifo_head[i] <= 1'b0;
+				read_fifo_data[i] <= 1'b1;
 			end else if(read_fifo_data[i] && ~fifo_empty[i]) begin
 				if(fifo_rddata[i][32]) begin
 					dest_port[i] = (fifo_rddata[i][31:0] == PORTB_ADDR) ? 'b01 : 'b00;
@@ -144,7 +144,6 @@ end
 
 endmodule
 
-endmodule
 
 
 
